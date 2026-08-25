@@ -1,88 +1,78 @@
-# Korea Wedding Vademecum v5
+# Wuk Jin & Emma's Korean Wedding — Website v6
 
-Static multi-page wedding travel guide for guests travelling from Europe to Korea.
-
-This version is designed for **GitHub Pages**. The website is static, and RSVP collection should be handled with **Google Forms** or another external form service.
+This version is designed for **GitHub Pages**. The website is static, and all guest responses should be collected with **one combined Google Form**.
 
 ## Files
 
-- `index.html` — homepage and RSVP section
-- `wedding.html` — traditional wedding, venue, directions, after-party
-- `stay.html` — accommodation before and after the wedding
-- `travel.html` — travel basics, money, SIM/eSIM, apps, transport
-- `explore.html` — Seoul/Korea guide and suggested itineraries
-- `jeju.html` — separate Jeju group trip page and interest form placeholder
-- `help.html` — emergency info, Korean phrases, FAQ
-- `success.html` — no longer needed if using Google Forms, but kept as a harmless old thank-you page
+- `index.html` — homepage, RSVP overview, map buttons, WhatsApp group button
+- `wedding.html` — traditional wedding, venue, dress code, wedding gift envelope, directions, after-party
+- `stay.html` — Seoul/Cheongju/venue accommodation and after-wedding stay
+- `travel.html` — travel basics, money, WOWPASS, Tmoney, SIM/eSIM, apps, etiquette
+- `explore.html` — Seoul and Korea travel ideas, with a short link to the separate Jeju page
+- `jeju.html` — separate Jeju group trip page; participation is collected through the main RSVP form
+- `help.html` — emergency numbers, Korean phrases, FAQ
+- `success.html` — old thank-you page, not needed when using Google Forms
 - `styles.css` — shared styling
-- `script.js` — menu, copy buttons, checklist saving
-- `.nojekyll` — tells GitHub Pages to publish the static files as-is
+- `script.js` — mobile nav, copy buttons, checklist memory
+- `google-form-builder.gs` — Apps Script you can paste into script.google.com to create the Google Form
+- `google-form-template.md` — manual copy-paste form template
 
-## Recommended form setup: Google Forms
+## Main Google Form setup
 
-GitHub Pages can host the website, but it does not process form submissions by itself because it is static hosting. Use Google Forms for RSVP and Jeju trip responses.
+Use **one combined Google Form** for everything:
 
-### Option A — one combined Google Form
+1. Attendance: Yes / No / Not sure yet
+2. Names of all guests
+3. Number of people
+4. Dietary restrictions or allergies
+5. Approximate arrival date in Korea
+6. Approximate departure date from Korea
+7. Whether they want to stay at the venue the night before the wedding
+8. Whether they want to stay at Saenggeo Jincheon Natural Recreation Forest after the wedding for 1 night
+9. Whether they are joining the Jeju trip
+10. Best contact for follow-up
+11. Other notes
 
-Create one form called `Korea Wedding RSVP` with these questions:
+## Fastest way to create the form
 
-1. Names of all guests — paragraph or short answer
-2. Number of people — short answer or number
-3. Dietary restrictions or allergies — paragraph
-4. Approximate arrival date in Korea — date
-5. Approximate departure date from Korea — date
-6. Are you joining the Jeju trip? — multiple choice: Yes / Maybe / No
-7. Do you want to stay at the venue the night before the wedding? — multiple choice: Yes / Maybe / No
-8. Do you want to stay at Saenggeo Jincheon Natural Recreation Forest after the wedding for 1 night? — multiple choice: Yes / Maybe / No
-9. Best contact for follow-up — short answer
+1. Go to https://script.google.com/ and create a new project.
+2. Open `google-form-builder.gs` from this folder.
+3. Copy all of its contents into the Apps Script editor.
+4. Click **Run** on `createWeddingRSVPForm`.
+5. Approve the Google permissions.
+6. Open **View → Logs** to copy the edit URL and responder URL.
+7. Paste the responder URL into the RSVP buttons in `index.html` and `jeju.html`.
 
-This is the simplest option and avoids duplicate responses.
+## Where to paste the Google Form link
 
-### Option B — two Google Forms
+In `index.html`, find:
 
-Use one form for RSVP and another form for Jeju planning.
+```html
+<a class="button button-primary" href="#" aria-disabled="true">Open combined RSVP form</a>
+```
 
-Jeju trip form questions:
+Replace it with:
 
-1. Names of people interested in Jeju
-2. Number of people
-3. Interest level — Yes / Maybe / No
-4. Approximate availability after the wedding
-5. Accommodation preferences or notes
-6. Best contact for follow-up
+```html
+<a class="button button-primary" href="YOUR_GOOGLE_FORM_LINK" target="_blank" rel="noopener">Open combined RSVP form</a>
+```
 
-## How to add the Google Form to the website
-
-1. Create the form in Google Forms.
-2. Click **Send**.
-3. Use the link icon to copy a share link and replace the placeholder `href="#"` in `index.html` or `jeju.html`.
-4. Optional: use the `<>` embed tab in Google Forms and copy the iframe code.
-5. Replace the commented placeholder block in the relevant HTML file with the iframe.
-
-For a cleaner mobile experience, I recommend using a clear button to open the form in a new tab rather than embedding a long iframe directly in the page.
+You may also paste the same link into `jeju.html` if you want the Jeju page button to open the form directly.
 
 ## GitHub Pages deployment
 
-1. Create a GitHub repository, for example `korea-wedding-guide`.
-2. Upload all files from this folder to the repository root.
-3. Go to **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select the `main` branch and `/root` folder.
-6. Save.
-7. GitHub will give you a URL such as `https://yourusername.github.io/korea-wedding-guide/`.
+1. Upload all files to the root of your GitHub repository.
+2. Go to **Settings → Pages**.
+3. Under **Build and deployment**, choose **Deploy from a branch**.
+4. Select `main` and `/root`.
+5. Save and wait for GitHub to publish the site.
 
-## Updating the website later
+## To update later
 
-Edit the files directly in GitHub or locally, then commit the changes. GitHub Pages will republish the site after the commit.
-
-## Things to update later
-
-- Real WhatsApp group link
-- Real Google Form link(s)
-- Wedding time
-- Final directions from Seoul/Cheongju
-- Accommodation booking process and room allocation
-- Final Jeju trip itinerary and Jeju Google Form link
-- Final PDF guide link
-- Current EUR/KRW exchange rate closer to April 2027
-- Any privacy-sensitive contact details
+- Wedding ceremony time
+- Final RSVP Google Form link
+- Final venue/night-before accommodation details
+- Final after-party and Saenggeo Jincheon Natural Recreation Forest booking details
+- Final Jeju trip itinerary
+- Latest EUR/KRW rate closer to April 2027
+- PDF essentials guide link
