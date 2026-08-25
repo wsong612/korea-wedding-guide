@@ -1,4 +1,4 @@
-# Korea Wedding Vademecum v4
+# Korea Wedding Vademecum v5
 
 Static multi-page wedding travel guide for guests travelling from Europe to Korea.
 
@@ -10,7 +10,8 @@ This version is designed for **GitHub Pages**. The website is static, and RSVP c
 - `wedding.html` — traditional wedding, venue, directions, after-party
 - `stay.html` — accommodation before and after the wedding
 - `travel.html` — travel basics, money, SIM/eSIM, apps, transport
-- `explore.html` — Seoul/Korea guide and Jeju trip section
+- `explore.html` — Seoul/Korea guide and suggested itineraries
+- `jeju.html` — separate Jeju group trip page and interest form placeholder
 - `help.html` — emergency info, Korean phrases, FAQ
 - `success.html` — no longer needed if using Google Forms, but kept as a harmless old thank-you page
 - `styles.css` — shared styling
@@ -31,8 +32,9 @@ Create one form called `Korea Wedding RSVP` with these questions:
 4. Approximate arrival date in Korea — date
 5. Approximate departure date from Korea — date
 6. Are you joining the Jeju trip? — multiple choice: Yes / Maybe / No
-7. Do you want to stay at 생거진천자연휴양림 after the wedding for 1 night? — multiple choice: Yes / Maybe / No
-8. Best contact for follow-up — short answer
+7. Do you want to stay at the venue the night before the wedding? — multiple choice: Yes / Maybe / No
+8. Do you want to stay at Saenggeo Jincheon Natural Recreation Forest after the wedding for 1 night? — multiple choice: Yes / Maybe / No
+9. Best contact for follow-up — short answer
 
 This is the simplest option and avoids duplicate responses.
 
@@ -53,7 +55,7 @@ Jeju trip form questions:
 
 1. Create the form in Google Forms.
 2. Click **Send**.
-3. Use the link icon to copy a share link and replace the placeholder `href="#"` in `index.html` or `explore.html`.
+3. Use the link icon to copy a share link and replace the placeholder `href="#"` in `index.html` or `jeju.html`.
 4. Optional: use the `<>` embed tab in Google Forms and copy the iframe code.
 5. Replace the commented placeholder block in the relevant HTML file with the iframe.
 
@@ -80,7 +82,7 @@ Edit the files directly in GitHub or locally, then commit the changes. GitHub Pa
 - Wedding time
 - Final directions from Seoul/Cheongju
 - Accommodation booking process and room allocation
-- Final Jeju trip itinerary
+- Final Jeju trip itinerary and Jeju Google Form link
 - Final PDF guide link
 - Current EUR/KRW exchange rate closer to April 2027
 - Any privacy-sensitive contact details
