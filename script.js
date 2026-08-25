@@ -3,6 +3,7 @@ const navMenu = document.querySelector('#nav-menu');
 const toast = document.querySelector('.toast');
 
 function showToast(message) {
+  if (!toast) return;
   toast.textContent = message;
   toast.classList.add('show');
   window.clearTimeout(showToast.timer);
@@ -28,17 +29,15 @@ document.querySelectorAll('.copy-button').forEach((button) => {
     const text = button.dataset.copy;
     try {
       await navigator.clipboard.writeText(text);
-      showToast('Korean address copied');
+      showToast(button.dataset.toast || 'Copied');
     } catch (error) {
-      showToast('Copy failed — please select the address manually');
+      showToast('Copy failed — please select the text manually');
     }
   });
 });
 
-const checklist = document.querySelector('[data-checklist]');
-const storageKey = 'koreaWeddingChecklistV1';
-
-if (checklist) {
+document.querySelectorAll('[data-checklist]').forEach((checklist, listIndex) => {
+  const storageKey = checklist.dataset.storage || `koreaWeddingChecklistV2-${location.pathname}-${listIndex}`;
   const boxes = Array.from(checklist.querySelectorAll('input[type="checkbox"]'));
   const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
   boxes.forEach((box, index) => {
@@ -47,4 +46,4 @@ if (checklist) {
       localStorage.setItem(storageKey, JSON.stringify(boxes.map((item) => item.checked)));
     });
   });
-}
+});
