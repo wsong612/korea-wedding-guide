@@ -1,78 +1,66 @@
-# Wuk Jin & Emma's Korean Wedding — Website v6
+# Wuk Jin & Emma's Korean Wedding — v9
 
-This version is designed for **GitHub Pages**. The website is static, and all guest responses should be collected with **one combined Google Form**.
+This version is rebuilt from v7, not from v8. It applies the design guide from the pasted markdown:
+
+- `#FAF7F2` parchment is the default background.
+- `#F5E8EF` pale pink is used as a special section background, not the whole site.
+- `#2E3C2D` dark green is used for selected dark editorial sections.
+- `#F96539` coral is reserved mainly for primary actions such as RSVP.
+- Cards are restrained: standard, feature, and dark card types.
+- Layout is more editorial: thin borders, minimal shadows, bigger photography slots, and less generic rounded-card styling.
 
 ## Files
 
-- `index.html` — homepage, RSVP overview, map buttons, WhatsApp group button
-- `wedding.html` — traditional wedding, venue, dress code, wedding gift envelope, directions, after-party
-- `stay.html` — Seoul/Cheongju/venue accommodation and after-wedding stay
-- `travel.html` — travel basics, money, WOWPASS, Tmoney, SIM/eSIM, apps, etiquette
-- `explore.html` — Seoul and Korea travel ideas, with a short link to the separate Jeju page
-- `jeju.html` — separate Jeju group trip page; participation is collected through the main RSVP form
-- `help.html` — emergency numbers, Korean phrases, FAQ
-- `success.html` — old thank-you page, not needed when using Google Forms
-- `styles.css` — shared styling
-- `script.js` — mobile nav, copy buttons, checklist memory
-- `google-form-builder.gs` — Apps Script you can paste into script.google.com to create the Google Form
-- `google-form-template.md` — manual copy-paste form template
+- `index.html` — Home & RSVP
+- `wedding.html` — Wedding & Venue
+- `stay.html` — Where to Stay
+- `travel.html` — Travel Basics
+- `explore.html` — Explore Korea
+- `jeju.html` — Jeju Trip
+- `help.html` — Help & FAQ
+- `success.html` — legacy fallback page
+- `styles.css` — complete design system
+- `script.js` — mobile menu, copy buttons, checklist persistence
+- `.nojekyll` — GitHub Pages helper
 
-## Main Google Form setup
+## Photo placeholders
 
-Use **one combined Google Form** for everything:
+The design intentionally includes photo slots instead of hot-linked third-party photos. Before publishing broadly, replace the placeholder blocks with your own photos or properly licensed images.
 
-1. Attendance: Yes / No / Not sure yet
-2. Names of all guests
-3. Number of people
-4. Dietary restrictions or allergies
-5. Approximate arrival date in Korea
-6. Approximate departure date from Korea
-7. Whether they want to stay at the venue the night before the wedding
-8. Whether they want to stay at Saenggeo Jincheon Natural Recreation Forest after the wedding for 1 night
-9. Whether they are joining the Jeju trip
-10. Best contact for follow-up
-11. Other notes
+Recommended photos:
 
-## Fastest way to create the form
+1. Homepage hero: horizontal venue photo.
+2. Homepage “A little Korea”: dancheong / roof / eave detail.
+3. Wedding page: venue and traditional wedding detail.
+4. Accommodation page: Seoul, Cheongju, venue hanok stay, Saenggeo Jincheon Natural Recreation Forest.
+5. Explore Korea: Seoul neighbourhoods, palaces, beyond-Seoul cities, Korean food.
+6. Jeju page: coast, volcanic landscape, cafés/food, scenic road.
 
-1. Go to https://script.google.com/ and create a new project.
-2. Open `google-form-builder.gs` from this folder.
-3. Copy all of its contents into the Apps Script editor.
-4. Click **Run** on `createWeddingRSVPForm`.
-5. Approve the Google permissions.
-6. Open **View → Logs** to copy the edit URL and responder URL.
-7. Paste the responder URL into the RSVP buttons in `index.html` and `jeju.html`.
+## Replacing a placeholder with an image
 
-## Where to paste the Google Form link
-
-In `index.html`, find:
+Example:
 
 ```html
-<a class="button button-primary" href="#" aria-disabled="true">Open combined RSVP form</a>
+<figure class="photo-card hero-photo">
+  <img src="assets/venue.jpg" alt="Chojeong Haenggung in spring">
+  <figcaption>Chojeong Haenggung · Cheongju</figcaption>
+</figure>
 ```
 
-Replace it with:
+Then add this CSS if needed:
 
-```html
-<a class="button button-primary" href="YOUR_GOOGLE_FORM_LINK" target="_blank" rel="noopener">Open combined RSVP form</a>
+```css
+.photo-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid rgba(91,31,21,.2);
+}
+.hero-photo img { aspect-ratio: 4 / 5; }
+.wide-photo img { aspect-ratio: 16 / 9; }
 ```
-
-You may also paste the same link into `jeju.html` if you want the Jeju page button to open the form directly.
 
 ## GitHub Pages deployment
 
-1. Upload all files to the root of your GitHub repository.
-2. Go to **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select `main` and `/root`.
-5. Save and wait for GitHub to publish the site.
-
-## To update later
-
-- Wedding ceremony time
-- Final RSVP Google Form link
-- Final venue/night-before accommodation details
-- Final after-party and Saenggeo Jincheon Natural Recreation Forest booking details
-- Final Jeju trip itinerary
-- Latest EUR/KRW rate closer to April 2027
-- PDF essentials guide link
+Upload all files to the root of your GitHub repository and enable Pages under Settings → Pages → Deploy from branch → main → root.

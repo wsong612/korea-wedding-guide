@@ -1,46 +1,44 @@
 
-const navToggle = document.querySelector('.nav-toggle');
-const navMenu = document.querySelector('#nav-menu');
-if (navToggle && navMenu) {
-  navToggle.addEventListener('click', () => {
-    const open = navMenu.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', String(open));
+(function () {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('#nav-menu');
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      const open = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!open));
+      navMenu.classList.toggle('open', !open);
+    });
+    navMenu.addEventListener('click', (event) => {
+      if (event.target instanceof HTMLAnchorElement) {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('open');
+      }
+    });
+  }
+
+  const toast = document.querySelector('.toast');
+  function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message || 'Copied';
+    toast.classList.add('visible');
+    window.setTimeout(() => toast.classList.remove('visible'), 1800);
+  }
+
+  document.querySelectorAll('.copy-button').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const text = button.getAttribute('data-copy') || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(button.getAttribute('data-toast') || 'Copied');
+      } catch (error) {
+        showToast('Copy failed — please select the text manually');
+      }
+    });
   });
-  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    navMenu.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-  }));
-}
 
-const toast = document.querySelector('.toast');
-function showToast(message){
-  if(!toast) return;
-  toast.textContent = message;
-  toast.classList.add('show');
-  window.clearTimeout(window.__toastTimer);
-  window.__toastTimer = window.setTimeout(()=>toast.classList.remove('show'), 2200);
-}
-
-document.querySelectorAll('.copy-button').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    const text = btn.getAttribute('data-copy') || '';
-    try {
-      await navigator.clipboard.writeText(text);
-      showToast(btn.getAttribute('data-toast') || 'Copied');
-    } catch(err) {
-      showToast('Copy failed. Please select the text manually.');
-    }
+  document.querySelectorAll('.checklist-card input[type="checkbox"]').forEach((box, index) => {
+    const key = 'wuk-emma-checklist-' + index;
+    box.checked = localStorage.getItem(key) === 'true';
+    box.addEventListener('change', () => localStorage.setItem(key, String(box.checked)));
   });
-});
-
-document.querySelectorAll('[data-checklist]').forEach(list => {
-  const key = 'checklist:' + list.getAttribute('data-checklist');
-  const boxes = Array.from(list.querySelectorAll('input[type="checkbox"]'));
-  try {
-    const saved = JSON.parse(localStorage.getItem(key) || '[]');
-    boxes.forEach((box, i) => box.checked = Boolean(saved[i]));
-    boxes.forEach((box, i) => box.addEventListener('change', () => {
-      localStorage.setItem(key, JSON.stringify(boxes.map(b => b.checked)));
-    }));
-  } catch(e) {}
-});
+})();
